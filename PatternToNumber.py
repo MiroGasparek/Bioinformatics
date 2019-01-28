@@ -1,4 +1,4 @@
-from PatternCount import PatternCount
+import itertools
 
 def PatternToNumber(Pattern):
 	"""
@@ -6,38 +6,25 @@ def PatternToNumber(Pattern):
 	------
 	Inputs: 
 	------
-	Text(string): A sequence in which the k-mers should be searched for.
-	k(int): length of the k-mer
+	Pattern(string): A nucleotide sequence for which the frequency array
+	is to be determined
 	------
 	Outputs:
 	-------
-	FrequentPatterns(string): Lengths of the most frequent k-mers.
+	kmer_ind(int): Integer with the lexicographic position of the given
+	k-mer.
 	"""
-
 	# Initialize the empty variables
-	FrequentPatterns = list()
-	Count = list()
+	kmer_list = list(range(4**(len(Pattern))))
 
-	# Get the text length
-	lT = len(Text)
+	# Make all the permutations of length of Pattern using the nucleotides
+	kmer_list = [''.join(map(str, i)) for i in itertools.product(['A','C','T','G'], repeat=len(Pattern))]
 
-	# Iterate over the 'Text' to find the patterns of k-mer length
-	for i in range(lT - k):
-		Pattern = Text[i:i+k]
-		Count.append(PatternCount(Text, Pattern))
+	# Sort the list lexicographically
+	kmer_list.sort()
+	# Get the index of the Pattern
+	kmer_ind = kmer_list.index(Pattern)
 
-	# Get the longest pattern
-	maxCount = max(Count)
+	return kmer_ind
 
-	# Iterate over the 'Text' to find the longest patterns
-	# and store them to the list 
-	for j in range(lT-k):
-		if Count[j] == maxCount:
-			FrequentPatterns.append(Text[j:j+k])
-			print(FrequentPatterns)
-
-	# Remove duplicates
-	FrequentPatterns = list(set(FrequentPatterns))
-	print(FrequentPatterns)
-	return FrequentPatterns
 

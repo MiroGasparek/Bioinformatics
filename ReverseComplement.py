@@ -16,12 +16,9 @@ def ReverseComplement(Pattern):
 	"""
 	# Convert Patternuence into the upper case letters
 	Pattern = Pattern.upper()
-	
-	Pattern_len = len(Pattern)
-
 	rev_compl = []
 
-	for ind in range(Pattern_len):
+	for ind in range(len(Pattern)):
 
 		if Pattern[ind] == 'A':
 			rev_compl.append('T')

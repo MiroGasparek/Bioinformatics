@@ -2,7 +2,7 @@ from PatternCount import PatternCount
 
 def FrequentWords(Text, k):
 	"""
-	Find the most frequent k-mers in a string
+	Find all the most frequent k-mers in a string
 	------
 	Inputs: 
 	------
@@ -11,33 +11,30 @@ def FrequentWords(Text, k):
 	------
 	Outputs:
 	-------
-	FrequentPatterns(string): Lengths of the most frequent k-mers.
+	freq_kmers(string): Lengths of the most frequent k-mers.
 	"""
 
 	# Initialize the empty variables
-	FrequentPatterns = list()
-	Count = list()
+	freq_kmers = list()
+	counts = list()
 
 	# Get the text length
 	lT = len(Text)
 
 	# Iterate over the 'Text' to find the patterns of k-mer length
 	for i in range(lT - k):
-		Pattern = Text[i:i+k]
-		Count.append(PatternCount(Text, Pattern))
+		kmer = Text[i:i+k]
+		counts.append(PatternCount(Text, kmer))
 
-	# Get the longest pattern
-	maxCount = max(Count)
-
-	# Iterate over the 'Text' to find the longest patterns
-	# and store them to the list 
-	for j in range(lT-k):
-		if Count[j] == maxCount:
-			FrequentPatterns.append(Text[j:j+k])
-			print(FrequentPatterns)
+		# Get the longest pattern
+		maxCount = max(counts)
+	
+	for j in range(lT - k):
+		if counts[j] == maxCount:
+			freq_kmers.append(Text[j:j+k])
 
 	# Remove duplicates
-	FrequentPatterns = list(set(FrequentPatterns))
-	print(FrequentPatterns)
-	return FrequentPatterns
+	freq_kmers = list(set(freq_kmers))
+	
+	return freq_kmers
 
